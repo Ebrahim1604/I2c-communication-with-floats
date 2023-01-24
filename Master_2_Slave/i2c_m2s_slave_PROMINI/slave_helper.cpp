@@ -36,41 +36,33 @@ void begin_i2c(void)
   Wire.begin(I2C_MY_ADDR); // join i2c bus
   }
   
-double byte2float(int b1, int b2, int b3, int b4)
+double byte2float(int b1,int b2,int b3,int b4)
 {
   union b2f {
   
     char _buffer[4];
-    double voltageReading;
+    float voltageReading;
   
   } converter;
-
-  /*
-  Serial.println(b1);
-  Serial.println(b2);
-  Serial.println(b3);
-  Serial.println(b4);
-  */
   
   converter._buffer[0] = b1;
   converter._buffer[1] = b2;
   converter._buffer[2] = b3;
   converter._buffer[3] = b4;
 
-  return converter.voltageReading;
+  return (double)converter.voltageReading;
+  }
   
-}
-
 int* float2bytes(double sensor_val)
 {
     union floatToBytes {
   
     char _buffer[4];
-    double voltageReading;
+    float voltageReading;
   
   } converter;
 
-  converter.voltageReading = sensor_val;
+  converter.voltageReading = (float)sensor_val;
 
   static int f2b[4];
 
@@ -79,6 +71,7 @@ int* float2bytes(double sensor_val)
   f2b[2] = converter._buffer[2];
   f2b[3] = converter._buffer[3];
 
+  
   Serial.println(f2b[0]);
   Serial.println(f2b[1]);
   Serial.println(f2b[2]);
@@ -86,7 +79,7 @@ int* float2bytes(double sensor_val)
   
   return f2b;  
   }
-  
+    
 double* get_latest_values(void)
 {
   static double sen_vals[8];
@@ -105,7 +98,7 @@ void i2c_send(int master_addr, int* _data, int data_len)
 {
   
    Wire.beginTransmission(master_addr);
-
+  /*
    Serial.print("sending Following data: ");
    for(int i=0; i<data_len; i++)
    {
@@ -115,7 +108,7 @@ void i2c_send(int master_addr, int* _data, int data_len)
     }
 
     Serial.println("");
-   
+   */
    int error = Wire.endTransmission();
 
    if(error == 0)
@@ -187,11 +180,13 @@ void handle_data_sending(void)
   for (int i=1; i<(int)(noofvals+1); i++)
   {
     int temp_val = Wire.read();
+    /*
     if(temp_val >127)
     {
       temp_val = 256 - temp_val;
       temp_val *= -1;
       }
+      */
     updated_values[i] = temp_val;
     //Serial.print(updated_values[i]);
     //Serial.print(" ");

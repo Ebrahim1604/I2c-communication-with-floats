@@ -59,10 +59,10 @@ void loop() {
 
   //replace these values actual values
   data_to_slave[0] = (double)no_of_values; // the number of sensor readings to be sent to the i2c slave
-  data_to_slave[1] = 0.12;// start from here
-  data_to_slave[2] = 0.24;
-  data_to_slave[3] = -200.4;
-  data_to_slave[4] = -47.09;
+  data_to_slave[1] = 0.35;// start from here
+  data_to_slave[2] = 0.46;
+  data_to_slave[3] = -64.4;
+  data_to_slave[4] = -83.09;
 
   return data_to_slave;
   }

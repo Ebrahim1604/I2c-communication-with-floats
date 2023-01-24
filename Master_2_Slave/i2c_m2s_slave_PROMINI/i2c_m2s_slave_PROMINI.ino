@@ -43,7 +43,7 @@ void loop() {
       sen_values = get_latest_values();
       Serial.print("Following ");
       Serial.print((int)sen_values[0]);
-      Serial.println(" Sensor values have been reveived: ");
+      Serial.println(" Sensor values have been received: ");
       
       for(int i=1; i<(int)(sen_values[0]+1); i++)
       {

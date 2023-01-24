@@ -108,16 +108,16 @@ double byte2float(int b1,int b2,int b3,int b4)
   union b2f {
   
     char _buffer[4];
-    double voltageReading;
+    float voltageReading;
   
   } converter;
-
+  
   converter._buffer[0] = b1;
   converter._buffer[1] = b2;
   converter._buffer[2] = b3;
   converter._buffer[3] = b4;
 
-  return converter.voltageReading;
+  return (double)converter.voltageReading;
   }
 
 void auth_setup(void)
@@ -275,11 +275,11 @@ int* float2bytes(double sensor_val)
     union floatToBytes {
   
     char _buffer[4];
-    double voltageReading;
+    float voltageReading;
   
   } converter;
 
-  converter.voltageReading = sensor_val;
+  converter.voltageReading = (float)sensor_val;
 
   static int f2b[4];
 
@@ -294,5 +294,6 @@ int* float2bytes(double sensor_val)
   Serial.println(f2b[2]);
   Serial.println(f2b[3]);
   */
+  
   return f2b;  
   }
